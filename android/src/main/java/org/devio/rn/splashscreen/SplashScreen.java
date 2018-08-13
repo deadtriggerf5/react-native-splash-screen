@@ -2,7 +2,6 @@ package org.devio.rn.splashscreen;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.os.Build;
 
 import java.lang.ref.WeakReference;
 
@@ -28,6 +27,7 @@ public class SplashScreen {
             @Override
             public void run() {
                 if (!activity.isFinishing()) {
+
                     mSplashDialog = new Dialog(activity, themeResId);
                     mSplashDialog.setContentView(R.layout.launch_screen);
                     mSplashDialog.setCancelable(false);
@@ -43,17 +43,8 @@ public class SplashScreen {
     /**
      * 打开启动屏
      */
-    public static void show(final Activity activity, final boolean fullScreen) {
-        int resourceId = fullScreen ? R.style.SplashScreen_Fullscreen : R.style.SplashScreen_SplashTheme;
-
-        show(activity, resourceId);
-    }
-
-    /**
-     * 打开启动屏
-     */
     public static void show(final Activity activity) {
-        show(activity, false);
+        show(activity, R.style.SplashScreen_SplashTheme);
     }
 
     /**
@@ -66,24 +57,13 @@ public class SplashScreen {
             }
             activity = mActivity.get();
         }
-
         if (activity == null) return;
 
-        final Activity _activity = activity;
-
-        _activity.runOnUiThread(new Runnable() {
+        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (mSplashDialog != null && mSplashDialog.isShowing()) {
-                    boolean isDestroyed = false;
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                        isDestroyed = _activity.isDestroyed();
-                    }
-
-                    if (!_activity.isFinishing() && !isDestroyed) {
-                        mSplashDialog.dismiss();
-                    }
+                    mSplashDialog.dismiss();
                     mSplashDialog = null;
                 }
             }

@@ -1,4 +1,4 @@
-package com.examples;
+package org.examples;
 
 import android.app.Application;
 
@@ -26,11 +26,6 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new SplashScreenReactPackage()
       );
-    }
-
-    @Override
-    protected String getJSMainModuleName() {
-      return "index";
     }
   };
 

@@ -7,8 +7,11 @@
  * Email:crazycodeboy@gmail.com
  * @flow
  */
-'use strict';
 
-import { NativeModules } from 'react-native';
-module.exports = NativeModules.SplashScreen;
+import {
+    AppRegistry,
+} from 'react-native';
 
+import index from './index.js'
+
+AppRegistry.registerComponent('examples', () => index);
